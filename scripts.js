@@ -81,6 +81,12 @@ function updateTotals() {
         const items = expenseList.children
 
         expenseQuantity.textContent = `${items.length} ${(items.length > 1 ? "despesas" : "despesa")}`
+
+        let totals = 0
+
+        for (let item of items) {
+            const itemAmount = item.getElementsByClassName("expense-amount")
+        }
     } catch (error) {
         alert("Não foi possível atualizar os totais")
         console.log(error)
