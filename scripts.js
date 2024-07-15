@@ -83,7 +83,7 @@ function updateTotals() {
 
         expenseQuantity.textContent = `${items.length} ${(items.length > 1 ? "despesas" : "despesa")}`
 
-        let totals = 0
+        let total = 0
 
         for (let item of items) {
             const itemAmount = item.querySelector(".expense-amount")
@@ -95,10 +95,17 @@ function updateTotals() {
                 throw new Error("Não foi possível calcular o total")
             }
 
-            totals += Number(value)
+            total += Number(value)
         }
 
-        expenseTotal.textContent = totals
+        total = formatCurrencyBRL(total).toUpperCase().replace("R$", "").trim()
+
+        const symbolBRL = document.createElement("small")
+        symbolBRL.textContent = "R$"
+
+        expenseTotal.innerHTML = "" // Para limpar o conteúdo do elemento
+        expenseTotal.append(symbolBRL, total)
+
     } catch (error) {
         alert("Não foi possível atualizar os totais")
         console.log(error)
