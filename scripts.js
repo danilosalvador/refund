@@ -3,6 +3,7 @@ const expense = document.getElementById("expense")
 const category = document.getElementById("category")
 const amount = document.getElementById("amount")
 const expenseList = document.querySelector("ul")
+const expenseTotal = document.querySelector("aside header h2")
 const expenseQuantity = document.querySelector("aside header p span")
 
 amount.oninput = () => {
@@ -85,8 +86,19 @@ function updateTotals() {
         let totals = 0
 
         for (let item of items) {
-            const itemAmount = item.getElementsByClassName("expense-amount")
+            const itemAmount = item.querySelector(".expense-amount")
+
+            let value = itemAmount.textContent.replace(/[^\d,]/g, "").replace(",", ".")
+            value = parseFloat(value)
+
+            if (isNaN(value)) {
+                throw new Error("Não foi possível calcular o total")
+            }
+
+            totals += Number(value)
         }
+
+        expenseTotal.textContent = totals
     } catch (error) {
         alert("Não foi possível atualizar os totais")
         console.log(error)
