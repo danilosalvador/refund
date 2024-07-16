@@ -114,6 +114,9 @@ function updateTotals() {
 
 expenseList.addEventListener("click", function(event) {
     if (event.target.classList.contains("remove-icon")) {
-        
+        const item = event.target.closest(".expense") // closest: obtém o elemento pai mais próximo
+        item.remove()
+
+        updateTotals()
     }
 })
